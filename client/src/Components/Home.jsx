@@ -1,21 +1,62 @@
-import React from 'react';
-import "../styles/Home.css"
+import React from "react";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useUserAuth } from "../context/UserAuthContext";
+import { SignedInComponent } from "./SignedInComponent";
+import '../App.css'
+import Navbar from './Navbar';
+import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
+import {Usertable} from '../usersTable'
+import '../App.css'
+import {Poststable}  from '../postsTable'
+import Createuser from '../createUser';
 
-function Home() {
-    return (
-        <div className='Home'>
-            <div className='home__body'>
-                    <img className="home__image"
-                    src='https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80'
-                    alt='splash'
-                    />
-            </div>
 
-                <div className='home__para'>
-                    <h1>Welcome to my space</h1>
-                </div>
-        </div>
-    )
-}
+const Home = () => {
+  const { logOut, user } = useUserAuth();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  return (
+    <>
+    
+      <div className="d-grid gap-2">
+      <Navbar />
+      {/* <SignedInComponent/> */}
+      <br/>
+      {/* <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/><br/>
+      <br/>
+      <br/>
+      <Routes>
+      <Route exact path='/users' component={Usertable}>
+            <Usertable /> 
+    </Route>
 
-export default Home
+          <Route exact path='/posts' component={Poststable}>
+            <Poststable />
+          </Route>
+
+          <Route exact path='/createuser' component={Createuser}>
+            <Createuser />
+          </Route>
+
+    </Routes> */}
+        <Button variant="primary" onClick={handleLogout}>
+          Log out
+        </Button>
+      </div>
+    </>
+  );
+};
+
+export default Home;

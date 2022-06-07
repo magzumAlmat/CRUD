@@ -1,4 +1,5 @@
-import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
+
 import Navbar from './Navbar';
 import Home from './Home';
 import Login from './Login';
@@ -15,14 +16,19 @@ import React from 'react';
 export class SignedInComponent extends React.Component{
 render(){
     return(
-<BrowserRouter>
+
       <div className="App">
         <Navbar />
-        <Switch>
-        <Redirect from='/CreatePost' to='/Register' />
-          <Route exact path='/' component={Home}>
-            <Home />
-          </Route>
+        <Routes>
+        {/* <Navigate from='/CreatePost' to='/Register' /> */}
+        <Route
+            path="/home"
+            element={
+      
+                <Home/>
+              
+            }
+          />
 
           <Route exact path='/users' component={Usertable}>
             <Usertable /> 
@@ -49,9 +55,9 @@ render(){
 
           
 
-        </Switch>
+        </Routes>
       </div>
-    </BrowserRouter>
+  
 
     )}
 
