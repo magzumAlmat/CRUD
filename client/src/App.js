@@ -10,46 +10,52 @@ import {Usertable} from './usersTable'
 import './App.css'
 import {Poststable}  from './postsTable'
 import Createuser from './createUser';
+import {SignedInComponent} from './Components/SignedInComponent';
+
 
 function App() {
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <Navbar />
-        <Switch>
-        <Redirect from='/CreatePost' to='/Register' />
-          <Route exact path='/' component={Home}>
-            <Home />
-          </Route>
+  return (<div>
+    <SignedInComponent/>
+    </div>
+    // <BrowserRouter>
+    //   <div className="App">
+    //     <Navbar />
+    //     <Switch>
+    //     <Redirect from='/CreatePost' to='/Register' />
+    //       <Route exact path='/' component={Home}>
+    //         <Home />
+    //       </Route>
 
-          <Route exact path='/users' component={Usertable}>
-            <Usertable /> 
-          </Route>
+    //       <Route exact path='/users' component={Usertable}>
+    //         <Usertable /> 
+    //       </Route>
 
-          <Route exact path='/posts' component={Poststable}>
-            <Poststable />
-          </Route>
+    //       <Route exact path='/posts' component={Poststable}>
+    //         <Poststable />
+    //       </Route>
 
-          <Route exact path='/createuser' component={Createuser}>
-            <Createuser />
-          </Route>
+    //       <Route exact path='/createuser' component={Createuser}>
+    //         <Createuser />
+    //       </Route>
 
-          {/* <Route exact path='/CreatePost' component={CreatePost}>
-            <CreatePost />
-          </Route> */}
+    //       {/* <Route exact path='/CreatePost' component={CreatePost}>
+    //         <CreatePost />
+    //       </Route> */}
 
         
 
-          <Route component=
-            {NotFound}>
+    //       <Route component=
+    //         {NotFound}>
 
-          </Route>
+    //       </Route>
 
           
 
-        </Switch>
-      </div>
-    </BrowserRouter>
+    //     </Switch>
+    //   </div>
+    // </BrowserRouter>
+
+    
   );
 }
 
