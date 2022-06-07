@@ -1,35 +1,56 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import Navbar from './Components/Navbar';
+import Home from './Components/Home';
+import Login from './Components/Login';
+import Register from './Components/Register';
+import CreatePost from './Components/CreatePost';
+import AllPost from './Components/AllPost';
+import NotFound from './Components/NotFound';
+import {Usertable} from './usersTable'
+import './App.css'
+import {Poststable}  from './postsTable'
+import Createuser from './createUser';
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { apiResponse: "" };
-    }
+function App() {
+  return (
+    <BrowserRouter>
+      <div className="App">
+        <Navbar />
+        <Switch>
+        <Redirect from='/CreatePost' to='/Register' />
+          <Route exact path='/' component={Home}>
+            <Home />
+          </Route>
 
-    callAPI() {
-        fetch("http://localhost:4000/api/user")
-            .then(res => res.text())
-            .then(res => this.setState({ apiResponse: res }))
-            .catch(err => err);
-    }
+          <Route exact path='/users' component={Usertable}>
+            <Usertable /> 
+          </Route>
 
-    componentDidMount() {
-        this.callAPI();
-    }
+          <Route exact path='/posts' component={Poststable}>
+            <Poststable />
+          </Route>
 
-    render() {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <p className="App-intro">{this.state.apiResponse}</p>
-            </div>
-        );
-    }
+          <Route exact path='/createuser' component={Createuser}>
+            <Createuser />
+          </Route>
+
+          {/* <Route exact path='/CreatePost' component={CreatePost}>
+            <CreatePost />
+          </Route> */}
+
+        
+
+          <Route component=
+            {NotFound}>
+
+          </Route>
+
+          
+
+        </Switch>
+      </div>
+    </BrowserRouter>
+  );
 }
 
 export default App;

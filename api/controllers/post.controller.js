@@ -15,6 +15,12 @@ class PostController{
         res.json(posts.rows[0])
     }
 
+    async getAllPosts(req,res){
+        
+        const Allposts= await db.query(`select * from post`)
+        res.json(Allposts.rows)
+    }
+
 }
 
 module.exports=new PostController()

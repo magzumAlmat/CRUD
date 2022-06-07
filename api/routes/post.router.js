@@ -6,5 +6,6 @@ const router= new Router()
 
 router.post('/post',postController.createPost)
 router.get('/post',postController.getPostsByUser)
+router.get('/posts',postController.getAllPosts)
 
 module.exports=router
