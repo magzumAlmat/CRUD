@@ -12,6 +12,7 @@ function Navbar() {
                         <li > <Link to="/users">Users</Link>  </li>
                         <li > <Link to="/posts">Posts</Link>  </li>
                         <li > <Link to="/createuser">Create user</Link>  </li>
+                        <li > <Link to="/createuserafterauth">Create user after auth</Link>  </li>
                        
                         {/* <li>
                             <Link to="/Register">Register</Link>

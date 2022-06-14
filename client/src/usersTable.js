@@ -62,7 +62,8 @@ export class Usertable extends Component {
     componentDidMount() {
         // Simple GET request using axios
         axios.get('http://localhost:4000/api/user')
-            .then(response => this.setState({ apiResponse: response.data }));
+            .then(response => this.setState({ apiResponse: response.data }),
+            console.log('THIS IS USERS TABLE from didmount',this.state.apiResponse));
     }
 
     

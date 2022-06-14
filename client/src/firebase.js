@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth,onAuthStateChanged } from "firebase/auth";
+import { useState } from "react";
 const firebaseConfig = {
   apiKey: "AIzaSyCtoDoMWVAPhvcn-_9-hse4fWKvbFkYUo4",
   authDomain: "chatapp-8998b.firebaseapp.com",
@@ -14,5 +15,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
+
+export function useAuth(){
+  const [currentUser,setCurrentUser]=useState();
+}
 
 export default (app);

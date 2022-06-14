@@ -5,8 +5,16 @@ import { Button } from "react-bootstrap";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { useUserAuth } from "../context/UserAuthContext";
-
+import { getAuth,signInWithPhoneNumber, updateCurrentUser } from "firebase/auth";
 import  { Navigate} from 'react-router-dom'
+import { auth } from "../firebase";
+import CreateuserAfterAuth from '../CreateUserAfterAuth'
+import {
+
+  onAuthStateChanged,
+
+} from "firebase/auth";
+
 const PhoneSignUp = () => {
   const [error, setError] = useState("");
   const [number, setNumber] = useState("");
@@ -16,6 +24,10 @@ const PhoneSignUp = () => {
   const { setUpRecaptha } = useUserAuth();
   const [NumbersDB, setNumbersDB] = useState("");
   const [OtpDB, setOtpDB] = useState("");
+
+  const [user, setUser] = useState({});
+
+
   
   const navigate = useNavigate();
 
@@ -51,7 +63,8 @@ const PhoneSignUp = () => {
     try {
       await result.confirm(otp);
       addRecordNumberToDb(otp)
-      goToHome();
+      // goToHome();
+      navigate("/home")
       
 
       localStorage.setItem("localStoragePhone", JSON.stringify(number));
@@ -72,13 +85,28 @@ const PhoneSignUp = () => {
 
 
 
+  // const code = getCodeFromUserInput();
+  // confirmationResult.confirm(code).then((result) => {
+  //   // User signed in successfully.
+  //   const user = result.user;
+  //   // ...
+  // }).catch((error) => {
+  //   // User couldn't sign in (bad verification code?)
+  //   // ...
+  // });
+  
+
+  const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
+    // console.log("Auth", currentuser);
+    setUser(currentuser);
+  })
 
 
   const phoneSignIn = async (e) => {
     e.preventDefault();
-    console.log('Я внутри phoneSIGNIN')
-    console.log('otp number',NumbersDB)
-    console.log('otp code',OtpDB)
+    // console.log('Я внутри phoneSIGNIN')
+    // console.log('otp number',NumbersDB)
+    // console.log('otp code',OtpDB)
 
     
     // console.log('NumberAndCode number',NumberAndCode)
@@ -91,12 +119,12 @@ const PhoneSignUp = () => {
     const c=localStorage.getItem('localStorageOtp')
     const cc = JSON.parse(c);
     
-    console.log('localStoragePhone number',nn)
-    console.log('localStorageOtp code',cc)
+    // console.log('localStoragePhone number',nn)
+    // console.log('localStorageOtp code',cc)
 
     if (nn === "" || nn === null) return;
     
-
+   
    
     try {
       const isEqual = (nn===NumbersDB & cc===OtpDB);
@@ -108,9 +136,26 @@ const PhoneSignUp = () => {
           // await result.confirm(OtpDB);
           // addRecordNumberToDb(OtpDB)
         
-          setFlag(true);
-          goToHome();
+        
+        
+          // confirmationResult.confirm(cc).then((result) => {
+         
+          //   const user = result.user;
+          //   navigate("/home")
           
+          // }).catch((error) => {
+         
+          // });
+
+
+          // addRecordNumberToDb(otp)
+          // resetReCaptchaOnWindow()
+          // getCodeFromUserInput(cc)
+          // updateCurrentUser()
+          unsubscribe();
+          goToHome();
+          CreateuserAfterAuth();
+          // navigate("/home")
           
         }
         else{
@@ -237,6 +282,7 @@ const PhoneSignUp = () => {
               onChange={setNumbersDB}
               placeholder="Enter Phone Number"
             />
+          
             <div id="recaptcha-container"></div>
           </Form.Group>
 
@@ -249,6 +295,7 @@ const PhoneSignUp = () => {
               onChange={(e) => setOtpDB(e.target.value)}
 
             />
+             <div id="recaptcha-container"></div>
           </Form.Group>
 
           <div className="button-right">

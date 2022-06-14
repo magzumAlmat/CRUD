@@ -31,6 +31,7 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
+import {CreateuserAfterAuth} from './CreateUserAfterAuth';
 
 function App() {
   return (
@@ -68,6 +69,9 @@ function App() {
           </Route>
 
           <Route path='/createuser' element={<Createuser/>}>
+           
+          </Route>
+          <Route path='/createuserafterauth' element={<CreateuserAfterAuth/>}>
            
           </Route>
 

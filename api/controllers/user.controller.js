@@ -36,6 +36,13 @@ class UserController{
         res.json(user.rows[0])
     }
 
+    // DELETE FROM person where id between 53 and 6144;
+    async deteleAllUsers(req,res){
+        
+        const user= await db.query(`DELETE * FROM person`)
+        res.json(user.rows[0])
+    }
+
 }
 
 
