@@ -39,53 +39,112 @@ const Home = () => {
       //   console.log('----response data        ',response.data),
       //   setApiResponse(response.data),
       .then((response) => response.json())
-      .then((response) => setApiResponse({ response, isFetching: false }));
-
+      .then((response) => setApiResponse({ response }));  
+  
     // const propertyValues = Object.values(JSON.stringify(apiResponse));
 
     // console.log('тип ',typeof propertyValues.name,'значение ',propertyValues.name);
 
-    const gg = JSON.stringify(apiResponse.response.name);
-    console.log(gg);
+    let gg =[];
+    gg=apiResponse.response
+    // console.log(gg)
+    // console.log('GG - ',gg);
+    
     // for (var key in gg) {
     //   if (gg.hasOwnProperty(key)) {
     //     console.log('from map',JSON.stringify(gg.response.name))
     //     mapped
 
-    //     if (gg.response.name === user.name.lastNotifiedUid) {
-    //       console.log('Есть такой пользователь ')
-
-    //     } else {
-
-    //     console.log('Такого пользователя нет щас создам! ') }
-
-    //   }
-    // }
+ 
 
     // console.log('this is gg',gg)
     // console.log('THIS IS API RESPONSE ','тип ',typeof gg,'значение ',gg.response)
-    console.log(
-      "тип ",
-      typeof user.name.lastNotifiedUid,
-      "значение ",
-      user.name.lastNotifiedUid
-    );
 
-    if (gg.response === user.name.lastNotifiedUid) {
-      console.log("Есть такой пользователь ");
-    } else {
-      console.log("Такого пользователя нет щас создам! ");
-      // axios
-      // .post(`http://localhost:4000/api/user`,{name: user.name.lastNotifiedUid, surname: 'none because user from google otp'}, {
+  
+    let userObj={}
 
-      // })
-      // .then(res => {
+    userObj=user.name.lastNotifiedUid
+    let gglenght=0
+    gglenght=gg.length
+    // console.log('gglenth ',gglenght)
+    
+    for (let i = 0; i < gglenght; i++) {
+              console.log('this is gg output ', gg[i].name );
+              console.log(userObj)
 
-      // });
-      console.log("Это сообщение из CreateUserAfterAuth я отработался ");
+                  if (gg[i].name === userObj) {
+                    console.log(gg,'Есть такой пользователь ')
+                    break;
+
+                  }
+                  
+                   else {
+                  console.log('gg- ',gg[i].name,'userObj- ',userObj,'Такого пользователя нет щас создам! ')
+                
+               }
+               
     }
-  });
+    
+  }
+             
+             
+  )//конец UseEffect
 
+  
+    // let arr = ["Яблоко", "Апельсин", "Груша"];
+
+  
+    // let kk={ 'name1': gg.response['name'], 'name2': userObj };
+
+    // console.log('this is kk       ', kk,'end of kk                 ')
+
+
+
+
+
+
+
+    // console.log(
+    //   "тип ",
+    //   typeof userObj,
+    //   "значение ",
+    //   userObj
+    // );
+
+      
+
+
+
+    // var myObject = apiResponse.response
+
+    // for (var key in myObject) {
+    //   if (myObject.hasOwnProperty(key)) {
+    //    kk= myObject
+    //   }
+    // }
+
+    // console.log('this is kk - ',kk);
+
+
+
+
+
+
+          // console.log(gg)
+  
+           
+
+            
+    // for (let i = 0; i < gg.length; i++) {
+    //           console.log('this is gg output ', gg[i] );
+    // }
+        
+        
+
+
+  
+
+  
   return (
     <>
       <div className="d-grid gap-2">
