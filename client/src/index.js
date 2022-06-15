@@ -6,11 +6,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router}  from "react-router-dom";
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     
-    <App />
+    <App />,
  
-  </React.StrictMode>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

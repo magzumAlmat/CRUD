@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -22,8 +22,15 @@ const user = {
   name: auth,
 };
 
+
+let arrayOfResults=[]
+
+
+
 const Home = () => {
   const [apiResponse, setApiResponse] = useState(false);
+  const isFirstRender = useRef(true);
+  var includes = require('array-includes');
   let userObj={}
   let gg =[];
   let gglenght=0
@@ -40,24 +47,84 @@ const Home = () => {
   
 
   useEffect(() => {
-    loadBookFromServer()
-  }, [])
-
-
-  async function loadBookFromServer() {
-    let response = await fetch('http://localhost:4000/api/user')
-    response  = await response.json() 
-    setApiResponse(response)
-  }
-  gg=apiResponse
-  console.log('this is ggin fetch',gg)
   
-  if (!apiResponse) return false //first render, when useEffect did't triggered yet we will return false
+  
+      if (isFirstRender.current) {
+        isFirstRender.current = false;
+        fetch("http://localhost:4000/api/user")
+           .then((response) => response.json())
+          .then((response) =>  setApiResponse({ response },console.log(' 1 this is response in fetch ', response)));  
+          console.log('this is apiReponse in fetch   ',apiResponse)
+
+  
+    userObj=user.name.lastNotifiedUid
+      
+    gglenght=gg.length
+
+
+    
+    let Restultgg=false
+  for (let i = 0; i < gglenght; i++) {
+    console.log('6 this is gg output ',gg[i].name );
+    console.log(userObj)
+    Restultgg=gg[i].name.includes(userObj)
+    
+    arrayOfResults.push(Restultgg);
+    console.log('   ')
+    console.log('   ')
+    console.log('   ')
+  
+
+    console.log('   ')
+    console.log('resultGG',arrayOfResults)
+    // contains(gg[i].name,userObj);
+
+
+  }
+
+  gg=apiResponse
+  console.log('MAIN ARRAY  gg fetch',gg)
 
 
 
+ 
+    // for(var i=0; i<arrayOfResults; i++) 
+    // { 
+    //   if (arrayOfResults[i]===true)
+    //   { console.log('RESULT GG IS TRUE')}
+    //   console.log('elment',arrayOfResults[i])
+    // }
+
+ 
+
+    if (arrayOfResults.includes(true))
+    {
+      console.log('RESULT GG IS TRUE')
+      arrayOfResults.length=0
+    }
+
+    else   {
+      console.log('НИЧЕ НЕ ДЕЛАЕМ')
+      arrayOfResults.length=0
+      console.log(' userObj передается в функцию   ',userObj.length,'   ', userObj)
+      axios
+      .post(`http://localhost:4000/api/user`,{name: userObj, surname: 'none because user from google otp'}, {
+      })
+      .then(res => {
+        // console.log(res);
+        // console.log(res.data);
+      });
+      console.log('Это сообщение из CreateUserAfterAuth я отработался ',gg.length) 
 
 
+    }}
+  
+  
+  },[])
+
+ 
+  
+  
   // useEffect( () => {
   //   fetch("http://localhost:4000/api/user")
   //     // .then(response =>
@@ -97,27 +164,54 @@ const Home = () => {
              
   // )//конец UseEffect
                
-    
-    
+
+  // console.log('this is gg',gg)
 
 
-
-  console.log('this is gg',gg)
-  userObj=user.name.lastNotifiedUid
-    
-  gglenght=gg.length
-
-  for (let i = 0; i < gglenght; i++) {
-    console.log('6 this is gg output ',gg[i].name );
-    console.log(userObj)
-
-        if (gg[i].name === userObj) {
-          console.log(gg,'7 Есть такой пользователь ')
-         }
+    return (
+      <>
         
-         else {
-        console.log('gg- ',gg[i].name,'userObj- ',userObj,' 8 Такого пользователя нет щас создам! ')
-       
+          <Navbar />
+          <h1>sfgsdgf</h1>
+          {/* <SignedInComponent/> */}
+          <br />
+          {/* <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/><br/>
+        <br/>
+        <br/>
+        <Routes>
+        <Route exact path='/users' component={Usertable}>
+              <Usertable /> 
+      </Route>
+            <Route exact path='/posts' component={Poststable}>
+              <Poststable />
+            </Route>
+            <Route exact path='/createuser' component={Createuser}>
+              <Createuser />
+            </Route>
+      </Routes> */}
+  
+          {/* <Button variant="primary" onClick={handleLogout}>
+            Log out
+          </Button> */}
+  
+        </>
+      
+    );
+  };
+  
+  export default Home;
+    
+    // if (gg[i].name !== userObj) {
+        //   console.log(gg,'7 Есть такой пользователь ')
+        //  }
+        
+        //  else {
+        // console.log('gg- ',gg[i].name,'userObj- ',userObj,' 8 Такого пользователя нет щас создам! ')
+        // createUser(userObj)
         
       
       // axios
@@ -129,12 +223,13 @@ const Home = () => {
       //   // console.log(res.data);
       // });
       // console.log('Это сообщение из CreateUserAfterAuth я отработался ') 
-      
-    }
+
+    
 
       
-     }
+     
 
+     
   
     // let arr = ["Яблоко", "Апельсин", "Груша"];
 
@@ -179,49 +274,4 @@ const Home = () => {
   
            
 
-            
-    // for (let i = 0; i < gg.length; i++) {
-    //           console.log('this is gg output ', gg[i] );
-    // }
-        
-        
-
-
-  
-
-  
-  return (
-    <>
-      <div className="d-grid gap-2">
-        <Navbar />
-
-        {/* <SignedInComponent/> */}
-        <br />
-        {/* <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/><br/>
-      <br/>
-      <br/>
-      <Routes>
-      <Route exact path='/users' component={Usertable}>
-            <Usertable /> 
-    </Route>
-          <Route exact path='/posts' component={Poststable}>
-            <Poststable />
-          </Route>
-          <Route exact path='/createuser' component={Createuser}>
-            <Createuser />
-          </Route>
-    </Routes> */}
-
-        {/* <Button variant="primary" onClick={handleLogout}>
-          Log out
-        </Button> */}
-      </div>
-    </>
-  );
-};
-
-export default Home;
+ 
