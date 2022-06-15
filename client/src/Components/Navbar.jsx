@@ -9,6 +9,7 @@ function Navbar() {
             
                 <div className='navbar__list'>
                     <ul>
+                    <li > <Link to="/home">Home</Link>  </li>
                         <li > <Link to="/users">Users</Link>  </li>
                         <li > <Link to="/posts">Posts</Link>  </li>
                         <li > <Link to="/createuser">Create user</Link>  </li>

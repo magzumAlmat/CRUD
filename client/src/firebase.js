@@ -21,3 +21,7 @@ export function useAuth(){
 }
 
 export default (app);
+
+
+
+// Delete from person where id between 79 and 600000;

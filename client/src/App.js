@@ -1,17 +1,14 @@
-import {BrowserRouter, Switch, Routes} from 'react-router-dom';
+import { Routes} from 'react-router-dom';
 
-import Navbar from './Components/Navbar';
+
 import Home from './Components/Home';
 import Login from './Components/Login';
-import Register from './Components/Register';
-import CreatePost from './Components/CreatePost';
-import AllPost from './Components/AllPost';
-import NotFound from './Components/NotFound';
+
 import {Usertable} from './usersTable'
 import './App.css'
 import {Poststable}  from './postsTable'
 import Createuser from './createUser';
-import {SignedInComponent} from './Components/SignedInComponent';
+
 
 
 
@@ -24,8 +21,8 @@ import Signup from "./Components/Signup";
 import PhoneSignUp from "./Components/PhoneSignUp";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
-import {db} from './firebase'
-import {collection, addDoc, Timestamp} from 'firebase/firestore'
+// import {db} from './firebase'
+// import {collection, addDoc, Timestamp} from 'firebase/firestore'
 
 import {
   BrowserRouter as Router,
@@ -71,9 +68,9 @@ function App() {
           <Route path='/createuser' element={<Createuser/>}>
            
           </Route>
-          <Route path='/createuserafterauth' element={<CreateuserAfterAuth/>}>
+          {/* <Route path='/createuserafterauth' element={<CreateuserAfterAuth/>}>
            
-          </Route>
+          </Route> */}
 
        
       </Routes>

@@ -23,7 +23,10 @@ const user = {
 };
 
 const Home = () => {
-  const [apiResponse, setApiResponse] = useState("");
+  const [apiResponse, setApiResponse] = useState(false);
+  let userObj={}
+  let gg =[];
+  let gglenght=0
   //   const navigate = useNavigate();
   //   const handleLogout = async () => {
   //     try {
@@ -33,62 +36,104 @@ const Home = () => {
   //       console.log(error.message);
   //     }
   //   };
-  useEffect(async () => {
-    fetch("http://localhost:4000/api/user")
-      // .then(response =>
-      //   console.log('----response data        ',response.data),
-      //   setApiResponse(response.data),
-      .then((response) => response.json())
-      .then((response) => setApiResponse({ response }));  
+
   
-    // const propertyValues = Object.values(JSON.stringify(apiResponse));
 
-    // console.log('тип ',typeof propertyValues.name,'значение ',propertyValues.name);
+  useEffect(() => {
+    loadBookFromServer()
+  }, [])
 
-    let gg =[];
-    gg=apiResponse.response
-    // console.log(gg)
-    // console.log('GG - ',gg);
+
+  async function loadBookFromServer() {
+    let response = await fetch('http://localhost:4000/api/user')
+    response  = await response.json() 
+    setApiResponse(response)
+  }
+  gg=apiResponse
+  console.log('this is ggin fetch',gg)
+  
+  if (!apiResponse) return false //first render, when useEffect did't triggered yet we will return false
+
+
+
+
+
+  // useEffect( () => {
+  //   fetch("http://localhost:4000/api/user")
+  //     // .then(response =>
+  //     //   console.log('----response data        ',response.data),
+  //     //   setApiResponse(response.data),
+  //     .then((response) => response.json())
+  //     .then((response) => setApiResponse({ response }));  
+  
+  //   // const propertyValues = Object.values(JSON.stringify(apiResponse));
+
+  //   // console.log('тип ',typeof propertyValues.name,'значение ',propertyValues.name);
+
+   
+  //   gg=apiResponse.response
+  //   console.log('this is ggin fetch',gg)
+  //   // console.log(gg)
+  //   // console.log('GG - ',gg);
     
-    // for (var key in gg) {
-    //   if (gg.hasOwnProperty(key)) {
-    //     console.log('from map',JSON.stringify(gg.response.name))
-    //     mapped
+  //   // for (var key in gg) {
+  //   //   if (gg.hasOwnProperty(key)) {
+  //   //     console.log('from map',JSON.stringify(gg.response.name))
+  //   //     mapped
 
  
 
-    // console.log('this is gg',gg)
-    // console.log('THIS IS API RESPONSE ','тип ',typeof gg,'значение ',gg.response)
+    
+  //   // console.log('THIS IS API RESPONSE ','тип ',typeof gg,'значение ',gg.response)
 
   
-    let userObj={}
-
-    userObj=user.name.lastNotifiedUid
-    let gglenght=0
-    gglenght=gg.length
-    // console.log('gglenth ',gglenght)
     
-    for (let i = 0; i < gglenght; i++) {
-              console.log('this is gg output ', gg[i].name );
-              console.log(userObj)
 
-                  if (gg[i].name === userObj) {
-                    console.log(gg,'Есть такой пользователь ')
-                    break;
-
-                  }
-                  
-                   else {
-                  console.log('gg- ',gg[i].name,'userObj- ',userObj,'Такого пользователя нет щас создам! ')
-                
-               }
+   
+  //   // console.log('gglenth ',gglenght)
+    
+  // },[apiResponse]
+             
+             
+  // )//конец UseEffect
                
-    }
     
-  }
-             
-             
-  )//конец UseEffect
+    
+
+
+
+  console.log('this is gg',gg)
+  userObj=user.name.lastNotifiedUid
+    
+  gglenght=gg.length
+
+  for (let i = 0; i < gglenght; i++) {
+    console.log('6 this is gg output ',gg[i].name );
+    console.log(userObj)
+
+        if (gg[i].name === userObj) {
+          console.log(gg,'7 Есть такой пользователь ')
+         }
+        
+         else {
+        console.log('gg- ',gg[i].name,'userObj- ',userObj,' 8 Такого пользователя нет щас создам! ')
+       
+        
+      
+      // axios
+      // .post(`http://localhost:4000/api/user`,{name: userObj, surname: 'none because user from google otp'}, {
+        
+      // })
+      // .then(res => {
+      //   // console.log(res);
+      //   // console.log(res.data);
+      // });
+      // console.log('Это сообщение из CreateUserAfterAuth я отработался ') 
+      
+    }
+
+      
+     }
 
   
     // let arr = ["Яблоко", "Апельсин", "Груша"];
@@ -163,15 +208,12 @@ const Home = () => {
       <Route exact path='/users' component={Usertable}>
             <Usertable /> 
     </Route>
-
           <Route exact path='/posts' component={Poststable}>
             <Poststable />
           </Route>
-
           <Route exact path='/createuser' component={Createuser}>
             <Createuser />
           </Route>
-
     </Routes> */}
 
         {/* <Button variant="primary" onClick={handleLogout}>
